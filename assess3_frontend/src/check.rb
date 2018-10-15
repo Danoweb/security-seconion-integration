@@ -9,10 +9,11 @@ dbPass = ""
 dbDatabase = "securityonion_db"
 checkTimerSeconds = 5
 lastEventFile = "lastEvent.json"
-apiHost = "127.0.0.1"
+apiHost = "192.168.1.25"
+apiPort = '3000'
 
 #Begin Security Onion Integration
-secOnion = SecOnion.new(apiHost)
+secOnion = SecOnion.new(apiHost, apiPort)
 secOnionFile = SecOnionFile.new(lastEventFile)
 
 secOnionFile.initLastFile()
@@ -27,6 +28,10 @@ begin
 
         lastEventData = secOnionFile.readLastFile()
         
+        if (secOnion.getLastEventRecord() == "")
+            secOnion.setLastEventRecord(lastEventData)
+        end
+
         #Show Last event
         puts 'Last Event: ' + lastEventData['unified_event_id'].to_s
         lastEventId = lastEventData['unified_event_id']
@@ -44,7 +49,7 @@ begin
 
         #Store Last used Event Id
         secOnionFile.writeLastFile(secOnion.getLastEventRecord())
-
+                
         #Hold execution until timer has elapsed
         sleep checkTimerSeconds
     end

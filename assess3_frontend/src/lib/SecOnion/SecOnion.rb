@@ -14,8 +14,9 @@ class SecOnion
         @apiHost = apiHost
         @apiPort = apiPort
 
-        @apiHeader = {'Content-Type': 'text/json'}
+        @apiHeader = {'Content-Type': 'application/json'}
         @http = Net::HTTP.new(@apiHost, @apiPort)
+        @lastEventRecord = ""
     end
 
     def dbConnect(dbHost, dbUser, dbPass, dbDatabase)
@@ -30,11 +31,11 @@ class SecOnion
     end
 
     def prepareEvent(event)
-        puts 'Last Event Id: ' + event['unified_event_id'].to_s
+        #puts 'Last Event Id: ' + event['unified_event_id'].to_s
         eventRecord = Hash.new
 
         event.each do |key, value|
-            puts "#{key}:#{value}"
+            #puts "#{key}:#{value}"
             eventRecord[key] = value
         end
 
@@ -47,7 +48,9 @@ class SecOnion
     def postEvent(postData)
         #Build Request
         request = Net::HTTP::Post.new("/event", @apiHeader)
-        request.body = postData.to_json
+        event = Hash.new
+        event['event'] = postData.to_json
+        request.body = event
 
         #Send Request
         #response = @http.request(request)
@@ -57,6 +60,10 @@ class SecOnion
 
     def getLastEventRecord()
         return @lastEventRecord
+    end
+
+    def setLastEventRecord(lastEventRecord)
+        @lastEventRecord = lastEventRecord
     end
 
     def dbClose()

@@ -21,6 +21,7 @@ class SecOnionFile
     def readLastFile()
         lastEventFileHandler = File.read(@lastEventFile)
         lastEventData = JSON.parse(lastEventFileHandler)
+        #puts lastEventData
         return lastEventData
     end
 
