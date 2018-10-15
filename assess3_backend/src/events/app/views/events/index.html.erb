@@ -1,0 +1,93 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sid</th>
+      <th>Cid</th>
+      <th>Signature</th>
+      <th>Signature gen</th>
+      <th>Signature</th>
+      <th>Signature rev</th>
+      <th>Timestamp</th>
+      <th>Unified event</th>
+      <th>Unified event ref</th>
+      <th>Unified ref time</th>
+      <th>Priority</th>
+      <th>Class</th>
+      <th>Status</th>
+      <th>Src ip</th>
+      <th>Dst ip</th>
+      <th>Src port</th>
+      <th>Dst port</th>
+      <th>Icmp type</th>
+      <th>Icmp code</th>
+      <th>Ip proto</th>
+      <th>Ip ver</th>
+      <th>Ip ver</th>
+      <th>Ip hlen</th>
+      <th>Ip tos</th>
+      <th>Ip len</th>
+      <th>Ip</th>
+      <th>Ip flags</th>
+      <th>Ip off</th>
+      <th>Ip ttl</th>
+      <th>Ip csum</th>
+      <th>Last modified</th>
+      <th>Last uid</th>
+      <th>Abuse queue</th>
+      <th>Abuse sent</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.sid %></td>
+        <td><%= event.cid %></td>
+        <td><%= event.signature %></td>
+        <td><%= event.signature_gen %></td>
+        <td><%= event.signature_id %></td>
+        <td><%= event.signature_rev %></td>
+        <td><%= event.timestamp %></td>
+        <td><%= event.unified_event_id %></td>
+        <td><%= event.unified_event_ref %></td>
+        <td><%= event.unified_ref_time %></td>
+        <td><%= event.priority %></td>
+        <td><%= event.class %></td>
+        <td><%= event.status %></td>
+        <td><%= event.src_ip %></td>
+        <td><%= event.dst_ip %></td>
+        <td><%= event.src_port %></td>
+        <td><%= event.dst_port %></td>
+        <td><%= event.icmp_type %></td>
+        <td><%= event.icmp_code %></td>
+        <td><%= event.ip_proto %></td>
+        <td><%= event.ip_ver %></td>
+        <td><%= event.ip_ver %></td>
+        <td><%= event.ip_hlen %></td>
+        <td><%= event.ip_tos %></td>
+        <td><%= event.ip_len %></td>
+        <td><%= event.ip_id %></td>
+        <td><%= event.ip_flags %></td>
+        <td><%= event.ip_off %></td>
+        <td><%= event.ip_ttl %></td>
+        <td><%= event.ip_csum %></td>
+        <td><%= event.last_modified %></td>
+        <td><%= event.last_uid %></td>
+        <td><%= event.abuse_queue %></td>
+        <td><%= event.abuse_sent %></td>
+        <td><%= link_to 'Show', event %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event', new_event_path %>

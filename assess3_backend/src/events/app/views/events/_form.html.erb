@@ -1,0 +1,153 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sid %><br>
+    <%= f.number_field :sid %>
+  </div>
+  <div class="field">
+    <%= f.label :cid %><br>
+    <%= f.number_field :cid %>
+  </div>
+  <div class="field">
+    <%= f.label :signature %><br>
+    <%= f.text_field :signature %>
+  </div>
+  <div class="field">
+    <%= f.label :signature_gen %><br>
+    <%= f.text_field :signature_gen %>
+  </div>
+  <div class="field">
+    <%= f.label :signature_id %><br>
+    <%= f.text_field :signature_id %>
+  </div>
+  <div class="field">
+    <%= f.label :signature_rev %><br>
+    <%= f.text_field :signature_rev %>
+  </div>
+  <div class="field">
+    <%= f.label :timestamp %><br>
+    <%= f.datetime_select :timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :unified_event_id %><br>
+    <%= f.number_field :unified_event_id %>
+  </div>
+  <div class="field">
+    <%= f.label :unified_event_ref %><br>
+    <%= f.number_field :unified_event_ref %>
+  </div>
+  <div class="field">
+    <%= f.label :unified_ref_time %><br>
+    <%= f.datetime_select :unified_ref_time %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br>
+    <%= f.number_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :class %><br>
+    <%= f.text_field :class %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.number_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :src_ip %><br>
+    <%= f.number_field :src_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :dst_ip %><br>
+    <%= f.number_field :dst_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :src_port %><br>
+    <%= f.number_field :src_port %>
+  </div>
+  <div class="field">
+    <%= f.label :dst_port %><br>
+    <%= f.number_field :dst_port %>
+  </div>
+  <div class="field">
+    <%= f.label :icmp_type %><br>
+    <%= f.number_field :icmp_type %>
+  </div>
+  <div class="field">
+    <%= f.label :icmp_code %><br>
+    <%= f.number_field :icmp_code %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_proto %><br>
+    <%= f.number_field :ip_proto %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_ver %><br>
+    <%= f.number_field :ip_ver %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_ver %><br>
+    <%= f.number_field :ip_ver %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_hlen %><br>
+    <%= f.number_field :ip_hlen %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_tos %><br>
+    <%= f.number_field :ip_tos %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_len %><br>
+    <%= f.number_field :ip_len %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_id %><br>
+    <%= f.number_field :ip_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_flags %><br>
+    <%= f.number_field :ip_flags %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_off %><br>
+    <%= f.number_field :ip_off %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_ttl %><br>
+    <%= f.number_field :ip_ttl %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_csum %><br>
+    <%= f.number_field :ip_csum %>
+  </div>
+  <div class="field">
+    <%= f.label :last_modified %><br>
+    <%= f.datetime_select :last_modified %>
+  </div>
+  <div class="field">
+    <%= f.label :last_uid %><br>
+    <%= f.number_field :last_uid %>
+  </div>
+  <div class="field">
+    <%= f.label :abuse_queue %><br>
+    <%= f.text_field :abuse_queue %>
+  </div>
+  <div class="field">
+    <%= f.label :abuse_sent %><br>
+    <%= f.text_field :abuse_sent %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

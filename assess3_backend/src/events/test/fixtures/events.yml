@@ -1,0 +1,73 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sid: 1
+  cid: 1
+  signature: MyString
+  signature_gen: MyString
+  signature_id: MyString
+  signature_rev: MyString
+  timestamp: 2018-10-15 02:54:20
+  unified_event_id: 1
+  unified_event_ref: 1
+  unified_ref_time: 2018-10-15 02:54:20
+  priority: 1
+  class: MyString
+  status: 1
+  src_ip: 1
+  dst_ip: 1
+  src_port: 1
+  dst_port: 1
+  icmp_type: 1
+  icmp_code: 1
+  ip_proto: 1
+  ip_ver: 1
+  ip_ver: 1
+  ip_hlen: 1
+  ip_tos: 1
+  ip_len: 1
+  ip_id: 1
+  ip_flags: 1
+  ip_off: 1
+  ip_ttl: 1
+  ip_csum: 1
+  last_modified: 2018-10-15 02:54:20
+  last_uid: 1
+  abuse_queue: MyString
+  abuse_sent: MyString
+
+two:
+  sid: 1
+  cid: 1
+  signature: MyString
+  signature_gen: MyString
+  signature_id: MyString
+  signature_rev: MyString
+  timestamp: 2018-10-15 02:54:20
+  unified_event_id: 1
+  unified_event_ref: 1
+  unified_ref_time: 2018-10-15 02:54:20
+  priority: 1
+  class: MyString
+  status: 1
+  src_ip: 1
+  dst_ip: 1
+  src_port: 1
+  dst_port: 1
+  icmp_type: 1
+  icmp_code: 1
+  ip_proto: 1
+  ip_ver: 1
+  ip_ver: 1
+  ip_hlen: 1
+  ip_tos: 1
+  ip_len: 1
+  ip_id: 1
+  ip_flags: 1
+  ip_off: 1
+  ip_ttl: 1
+  ip_csum: 1
+  last_modified: 2018-10-15 02:54:20
+  last_uid: 1
+  abuse_queue: MyString
+  abuse_sent: MyString
