@@ -1,5 +1,6 @@
 require "json"
 require "mysql2"
+require "net/http"
 
 #Config
 dbHost = "localhost"
@@ -10,6 +11,11 @@ dbTable = "event"
 checkTimerSeconds = 5
 lastEventFile = "lastEvent.json"
 lastEventId = 0
+apiHost = ""
+apiPort = "80"
+apiHeader = {'Content-Type': 'text/json'}
+
+http = Net::HTTP.new(apiHost, apiPort)
 
 #Check that local storage file exists in first-run scenarios
 if File.file?(lastEventFile) == false 
@@ -43,6 +49,9 @@ begin
         eventResult.each {
             |e| puts 'Last Event Id: ' + e['unified_event_id'].to_s
             lastEventId = e['unified_event_id']
+            e.each do |key, value|
+                puts "#{key}:#{value}"
+            end
         }
 
         #Build our storage object
@@ -65,4 +74,13 @@ rescue StandardError => e
 
 ensure
     dbConnect.close if dbConnect
+end
+
+def postApi(postData)
+    #Build Request
+    request = Net::HTTP:Post.new(apiHost+"/event", apiHeader)
+    request.body = postData.to_json
+
+    #Send Request
+    response = http.request(request)
 end
