@@ -1,59 +1,49 @@
-require "json"
-require "mysql2"
+#!/usr/local/bin/ruby -w
+require "./lib/SecOnion/SecOnion"
+require "./lib/SecOnion/SecOnionFile"
 
 #Config
-dbHost = "localhost"
-dbUser = ""
+dbHost = "127.0.0.1"
+dbUser = "root"
 dbPass = ""
 dbDatabase = "securityonion_db"
-dbTable = "event"
 checkTimerSeconds = 5
 lastEventFile = "lastEvent.json"
-lastEventId = 0
+apiHost = "127.0.0.1"
 
-#Check that local storage file exists in first-run scenarios
-if File.file?(lastEventFile) == false 
-    stub = { 'unified_event_id' => '0' }
-    File.open(lastEventFile, 'w') do |f|
-        f.write(stub.to_json)
-    end
-end
+#Begin Security Onion Integration
+secOnion = SecOnion.new(apiHost)
+secOnionFile = SecOnionFile.new(lastEventFile)
 
-#Connect to DB
+secOnionFile.initLastFile()
+
 begin
-    dbConnect = Mysql2::Client.new(:host => dbHost, :username => dbUser, :password => dbPass, :database => dbDatabase)
+    #Connect to DB
+    secOnion.dbConnect(dbHost, dbUser, dbPass, dbDatabase)
 
     #Loop every so often, check DB for updates, and send to REST api, save last event to local FS
     while true do
         puts Time.now
 
-        #TODO: Check local FS for last used ID
-        lastEventFileHandler = File.read(lastEventFile)
-        lastEventData = JSON.parse(lastEventFileHandler)
+        lastEventData = secOnionFile.readLastFile()
         
         #Show Last event
         puts 'Last Event: ' + lastEventData['unified_event_id'].to_s
         lastEventId = lastEventData['unified_event_id']
         
-        eventQuery = "SELECT * FROM event WHERE unified_event_id > '#{lastEventId}' ORDER BY unified_event_id ASC"
-        #puts eventQuery
+        #Get New Events
+        eventResult = secOnion.getNewEvents(lastEventId)
 
-        eventResult = dbConnect.query(eventQuery)
-
+        #For Each new event, build JSON, and POST to API
         eventResult.each {
-            |e| puts 'Last Event Id: ' + e['unified_event_id'].to_s
-            lastEventId = e['unified_event_id']
+            |eventItem|
+            event = secOnion.prepareEvent(eventItem)
+            
+            secOnion.postEvent(event)
         }
 
-        #Build our storage object
-        lastEvent =  {
-            'unified_event_id' => lastEventId
-        }
-        
-        #Write storage object to local FS
-        File.open(lastEventFile, 'w') do |f|
-            f.write(lastEvent.to_json)
-        end
+        #Store Last used Event Id
+        secOnionFile.writeLastFile(secOnion.getLastEventRecord())
 
         #Hold execution until timer has elapsed
         sleep checkTimerSeconds
@@ -64,5 +54,6 @@ rescue StandardError => e
     puts e.backtrace.inspect
 
 ensure
-    dbConnect.close if dbConnect
+    secOnion.dbClose()
+    
 end
