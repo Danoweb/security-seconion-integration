@@ -34,13 +34,14 @@ begin
         puts 'Last Event: ' + lastEventData['unified_event_id']
         lastEventId = lastEventData['unified_event_id']
         
-        eventQuery = "SELECT * FROM event WHERE unified_event_id > #{lastEventId} ORDER BY unified_event_id ASC"
+        eventQuery = "SELECT * FROM event WHERE unified_event_id > '#{lastEventId}' ORDER BY unified_event_id ASC"
         puts eventQuery
 
         eventResult = dbConnect.query(eventQuery)
 
-        rs.each_hash {
-            |e| puts e['unified_event_id']
+        eventResult.each {
+            |e| puts 'Last Event Id: ' + e['unified_event_id']
+            lastEventId = e['unified_event_id']
         }
         
         #Hold execution until timer has elapsed
