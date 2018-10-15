@@ -1,0 +1,11 @@
+version: '3'
+services:
+  assess3_seconion:
+    container_name: assess3_seconion
+    build: 
+      context: .
+    network_mode: "host"
+    privileged: true
+    #ports:
+    volumes: 
+      - ./src:/usr/app

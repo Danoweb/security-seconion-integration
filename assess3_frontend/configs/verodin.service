@@ -1,0 +1,9 @@
+[Unit]
+Description=Verodin Security Onion Integration Service
+
+[Service]
+User=verodin
+Group=verodin
+WorkingDirectory=/usr/app
+Restart=always
+ExecStart=/usr/bin/ruby check.rb
