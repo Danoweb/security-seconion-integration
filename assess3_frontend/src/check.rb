@@ -32,16 +32,16 @@ begin
         lastEventData = JSON.parse(lastEventFileHandler)
         
         #Show Last event
-        puts 'Last Event: ' + lastEventData['unified_event_id']
+        puts 'Last Event: ' + lastEventData['unified_event_id'].to_s
         lastEventId = lastEventData['unified_event_id']
         
         eventQuery = "SELECT * FROM event WHERE unified_event_id > '#{lastEventId}' ORDER BY unified_event_id ASC"
-        puts eventQuery
+        #puts eventQuery
 
         eventResult = dbConnect.query(eventQuery)
 
         eventResult.each {
-            |e| puts 'Last Event Id: ' + e['unified_event_id']
+            |e| puts 'Last Event Id: ' + e['unified_event_id'].to_s
             lastEventId = e['unified_event_id']
         }
 
@@ -66,6 +66,3 @@ rescue StandardError => e
 ensure
     dbConnect.close if dbConnect
 end
-
-
-
