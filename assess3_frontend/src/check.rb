@@ -30,6 +30,7 @@ begin
         #TODO: Check local FS for last used ID
         lastEventFileHandler = File.read(lastEventFile)
         lastEventData = JSON.parse(lastEventFileHandler)
+        
         #Show Last event
         puts 'Last Event: ' + lastEventData['unified_event_id']
         lastEventId = lastEventData['unified_event_id']
@@ -43,7 +44,17 @@ begin
             |e| puts 'Last Event Id: ' + e['unified_event_id']
             lastEventId = e['unified_event_id']
         }
+
+        #Build our storage object
+        lastEvent =  {
+            'unified_event_id' => lastEventId
+        }
         
+        #Write storage object to local FS
+        File.open(lastEventFile, 'w') do |f|
+            f.write(lastEvent.to_json)
+        end
+
         #Hold execution until timer has elapsed
         sleep checkTimerSeconds
     end
