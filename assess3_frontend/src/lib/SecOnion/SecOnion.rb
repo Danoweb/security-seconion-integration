@@ -14,7 +14,7 @@ class SecOnion
         @apiHost = apiHost
         @apiPort = apiPort
 
-        @apiHeader = {'Content-Type': 'application/json'}
+        @apiHeader = {'Content-Type' => 'application/json'}
         @http = Net::HTTP.new(@apiHost, @apiPort)
         @lastEventRecord = ""
     end
@@ -36,6 +36,10 @@ class SecOnion
 
         event.each do |key, value|
             #puts "#{key}:#{value}"
+            #Fix reserved word usage by SecOnion
+            if key == 'class'
+                key = 'eclass'
+            end
             eventRecord[key] = value
         end
 
@@ -47,15 +51,16 @@ class SecOnion
 
     def postEvent(postData)
         #Build Request
-        request = Net::HTTP::Post.new("/event", @apiHeader)
-        event = Hash.new
-        event['event'] = postData.to_json
-        request.body = event
-
+        request = Net::HTTP::Post.new("/events", @apiHeader)
+        #event = Hash.new
+        #event['event'] = postData.to_json
+        #Clean out invalid escape characters
+        request.body = '{"event":' + postData.to_json.to_s.gsub('\\', '') + '}'
+        
         #Send Request
-        #response = @http.request(request)
+        response = @http.request(request)
         puts request.body
-        #return response
+        return response
     end
 
     def getLastEventRecord()

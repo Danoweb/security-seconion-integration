@@ -14,4 +14,4 @@ RUN bundle install
 
 COPY ./src/ /usr/app/api
 
-CMD ["/usr/app/api"]
+CMD ["rails s -b 0.0.0.0"]
