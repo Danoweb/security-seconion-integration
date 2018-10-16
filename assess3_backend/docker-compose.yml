@@ -4,8 +4,8 @@ services:
     container_name: assess3_seconion_api
     build: 
       context: .
-    network_mode: "host"
-    privileged: true
-    #ports:
+    command: rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - "9000:3000"
     volumes: 
-      - ./src:/usr/app/api
+      - ./src:/usr/app-api
